@@ -3,13 +3,26 @@ package com.example;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
 public class App {
     public static void main(String[] args) throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
+
+        ChromeOptions options = new ChromeOptions();
+
+        // 🔥 REQUIRED FOR JENKINS
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+
+        // 👇 IMPORTANT CHANGE
+        WebDriver driver = new ChromeDriver(options);
+
         // Open Products Page
         driver.get("https://automationexercise.com/products");
-        // Maximize Browser Window
-        driver.manage().window().maximize();
+
         // Add Product 4 to Cart
         driver.findElement(By.cssSelector("[data-product-id='4']")).click();
         Thread.sleep(2000);
@@ -31,10 +44,8 @@ public class App {
         // Refresh Cart Page
         driver.navigate().refresh();
 
-        // Wait for 10 seconds
-        Thread.sleep(10000);
+        Thread.sleep(5000);
 
-        // Close Browser
         driver.quit();
     }
 }
