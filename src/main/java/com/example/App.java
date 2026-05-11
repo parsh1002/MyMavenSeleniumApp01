@@ -11,7 +11,7 @@ public class App {
 
         ChromeOptions options = new ChromeOptions();
 
-        // REMOVE headless mode if you want browser popup window
+        // REMOVE HEADLESS MODE
         // options.addArguments("--headless=new");
 
         options.addArguments("--no-sandbox");
@@ -20,23 +20,37 @@ public class App {
 
         WebDriver driver = new ChromeDriver(options);
 
-        // Open SauceDemo
-        driver.get("https://www.saucedemo.com/");
+        driver.get("https://automationexercise.com/products");
 
-        // Login
-        driver.findElement(By.id("user-name"))
-              .sendKeys("standard_user");
+        // Product 4
+        driver.findElement(By.cssSelector("[data-product-id='4']")).click();
+        Thread.sleep(2000);
 
-        driver.findElement(By.id("password"))
-              .sendKeys("secret_sauce");
+        driver.findElement(
+            By.cssSelector(".btn.btn-success.close-modal.btn-block")
+        ).click();
 
-        driver.findElement(By.id("login-button"))
-              .click();
+        // Product 5
+        driver.findElement(By.cssSelector("[data-product-id='5']")).click();
+        Thread.sleep(2000);
 
-        // Keep browser open for 10 seconds
+        driver.findElement(
+            By.cssSelector(".btn.btn-success.close-modal.btn-block")
+        ).click();
+
+        // Product 6
+        driver.findElement(By.cssSelector("[data-product-id='6']")).click();
+        Thread.sleep(2000);
+
+        driver.findElement(
+            By.cssSelector(".btn.btn-success.close-modal.btn-block")
+        ).click();
+
+        // Open cart
+        driver.get("https://automationexercise.com/view_cart");
+
         Thread.sleep(10000);
 
-        // Comment this if you want browser to stay open
         // driver.quit();
     }
 }
