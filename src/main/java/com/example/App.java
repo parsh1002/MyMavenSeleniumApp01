@@ -6,46 +6,37 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class App {
+
     public static void main(String[] args) throws InterruptedException {
 
         ChromeOptions options = new ChromeOptions();
 
-        // 🔥 REQUIRED FOR JENKINS
-        options.addArguments("--headless=new");
+        // REMOVE headless mode if you want browser popup window
+        // options.addArguments("--headless=new");
+
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--start-maximized");
 
-        // 👇 IMPORTANT CHANGE
         WebDriver driver = new ChromeDriver(options);
 
-        // Open Products Page
-        driver.get("https://automationexercise.com/products");
+        // Open SauceDemo
+        driver.get("https://www.saucedemo.com/");
 
-        // Add Product 4 to Cart
-        driver.findElement(By.cssSelector("[data-product-id='4']")).click();
-        Thread.sleep(2000);
-        driver.findElement(By.cssSelector(".btn.btn-success.close-modal.btn-block")).click();
+        // Login
+        driver.findElement(By.id("user-name"))
+              .sendKeys("standard_user");
 
-        // Add Product 5 to Cart
-        driver.findElement(By.cssSelector("[data-product-id='5']")).click();
-        Thread.sleep(2000);
-        driver.findElement(By.cssSelector(".btn.btn-success.close-modal.btn-block")).click();
+        driver.findElement(By.id("password"))
+              .sendKeys("secret_sauce");
 
-        // Add Product 6 to Cart
-        driver.findElement(By.cssSelector("[data-product-id='6']")).click();
-        Thread.sleep(2000);
-        driver.findElement(By.cssSelector(".btn.btn-success.close-modal.btn-block")).click();
+        driver.findElement(By.id("login-button"))
+              .click();
 
-        // Open Cart Page
-        driver.get("https://automationexercise.com/view_cart");
+        // Keep browser open for 10 seconds
+        Thread.sleep(10000);
 
-        // Refresh Cart Page
-        driver.navigate().refresh();
-
-        Thread.sleep(5000);
-
-        driver.quit();
+        // Comment this if you want browser to stay open
+        // driver.quit();
     }
 }
